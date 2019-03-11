@@ -1,0 +1,19 @@
+{
+  "name": "sharegate-gravt-fake-api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/.bin/nodemon server/index.js"
+  },
+  "dependencies": {
+    "cors": "2.8.4",
+    "express": "4.16.3",
+    "faker": "^4.1.0",
+    "husky": "1.0.0-rc.15",
+    "lodash": "4.17.11",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.4"
+  }
+}

@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "app/amazon"
+		},
+		{
+			"path": "fake-api"
+		}
+	],
+	"settings": {}
+}
