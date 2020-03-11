@@ -1,7 +1,7 @@
 <div align="center">
 <h1>Formation TypeScript</h1>
 
-<a href="https://github.com/typescript-cheatsheets/react-typescript-cheatsheet/issues/81">
+<a href="#">
   <img
     height="90"
     width="90"
@@ -13,7 +13,7 @@
 
 <p>Formations pour les développeurs React d'expérience qui commencent avec TypeScript</p>
 
-[**Présentation**](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet#basic-cheatsheet-table-of-contents) |
+[**Présentation**](#) |
 [**Exercices TypeScript**](#exercices-typescript) |
 [**Exercices TypeScript React**](#exercices-typescript-react) |
 
