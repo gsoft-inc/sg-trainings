@@ -16,6 +16,7 @@
 [**Présentation**](#) |
 [**Exercices TypeScript**](#exercices-typescript) |
 [**Exercices TypeScript React**](#exercices-typescript-react) |
+[**Guidelines**](https://gsoftdev.atlassian.net/wiki/spaces/SGSAAS/pages/972458261/WIP+Guidelines+TypeScript) |
 
 </div>
 
@@ -91,3 +92,7 @@ Tu le mérites
 *Exercice 3.2 : useRef*
 - Lien vers l'exercice : [ici](http://www.typescriptlang.org/play/?jsx=2&ssl=1&ssc=1&pln=27&pc=2&useJavaScript=true#code/JYWwDg9gTgLgBAJQKYEMDGMA0cDecCuAzksgGbZFICippSGcAvnKVBCHAERSoacBQ-APRC4AKgmSp0mbLnyFiucNES4VAB5IoaYGiSE4AZgB0AJjgAuOCvFi4ARgC0cAMIQAdgDdtMYFHUNFHAAGyQHOCR4TWCwMIskDzgAMXwPDGBPd3BPRPgYAE8wAEuTWzUzFwBVDyQWCGBDAEd8AHJgELgPVoK4FDg4ojgAE1btHnwoQmwIACNiKB8AsMNh4FpinnS6vJ44FbhCsAMRup5SCKi4c7NypXuHx6fJQTRPQmig0PC4AF44AAUAEo-gA+XD8OBwN4eD7XJAXP4EYhkAEefAhEJAgDcgihPBgkySAMhULgAB41l54aRfjhzg5GODSVDOAAVJAaGACMkUoRU0GknH8Rivd6fWLxJEAnBeFAhfBIRgg37gnCkmFwm5Iyio9GY4Wkyg0OgYAHAsEQ3k3ExoSZbeD-OUKpC4qHKvHwwlQJL6kK4xhAA)
 - Lien vers la solution: [ici](http://www.typescriptlang.org/play/?jsx=2&ssl=8&ssc=78&pln=1&pc=51#code/JYWwDg9gTgLgBAJQKYEMDGMA0cDeAxAYWwFcBnJZAMxPIFFLKkMBfOSqCEOAIilQ24AoQQHoRcAFRTpM2XPkLFS5QtHipcWgA8kUNMDRJScAMwA6AExwAXHDWSJcAIwBaOAQgA7AG66YwKE0tFHAAGyQnOCR4bRCwcKskTzg8Yk8MYC8PcC8k+BgATzAAS7N7DQs3AFVPJDYIYGMAR2IAcmBQuE9WgrgUOHiyOAATVt0+YihSbAgAI3IoX0Dw42HgBmK+dLq8vjgVuEKwIxG6vkpI6Lhzi3KVe4fHp+lhNC9SGOCwiNtCOABeOAACgAlACAHy4QRwOBvTwfa5IC4AuBkChIgA8AAkACoAWQAMgARYDeWjhEB5cFAzzEUKhEEAbmEML4MEmySB0JhcAxa28iMo-xw5yczEh3Jh3BxSC0MCEPN5In54O5TMEzGEgmAnhguko6DqsW+FgAChwwMYcNzvChQsQkLZaSBZroNa93p84glfgQMcb4kgzRbSJDAUCcLb7UhmGD-pDrTC4Qibii0VQMc7XYEAD5dOmham0+nq7lo+iMDBA0EQqGKm5mNCTLbwQFRh3MmGxlmI9lQZLF0LM5hAA)
+
+
+# Guidelines 
+[Confluence](https://gsoftdev.atlassian.net/wiki/spaces/SGSAAS/pages/972458261/WIP+Guidelines+TypeScript)
