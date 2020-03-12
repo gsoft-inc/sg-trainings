@@ -31,7 +31,7 @@
 
 # Exercices TypeScript
 
-- TODO
+5 exercices dans la sandbox [ici](https://codesandbox.io/s/typescript-exercises-78jy3) 
 
 #  Exercices TypeScript React
 
