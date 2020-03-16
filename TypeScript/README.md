@@ -14,9 +14,9 @@
 <p>Formations pour les développeurs React d'expérience qui commencent avec TypeScript</p>
 
 [**Présentation**](#) |
-[**Exercices TypeScript**](#exercices-typescript) |
-[**Exercices TypeScript React**](#exercices-typescript-react) |
 [**Guidelines**](https://gsoftdev.atlassian.net/wiki/spaces/SGSAAS/pages/972458261/WIP+Guidelines+TypeScript) |
+[**Cheatsheet**](https://github.com/gsoft-inc/sg-trainings/blob/master/TypeScript/cheatsheet.md)
+
 
 </div>
 
