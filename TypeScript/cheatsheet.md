@@ -341,14 +341,62 @@ export function useLoading() {
 
 ## TypeScript Redux
 
+### Useful Types
+
+When writing Redux actions/reducers/handlers, you will most likely use the following types : 
+
+1. **AppState:** AppState represents the all the state in the redux store. Since we have no way for now to create a type representing all the state, **AppState** is equal to **any**. AppState is declared in src/app/@types/global.d.ts, and does not need to be imported in a file to be used (it is declared globally)
+
+2. **Action:** Action is the type returned by the action builder. It contains a `type` and a `payload` and other properties used by middlewares. It is imported from the core : `import { Action } from "@core/redux"`.
+
+3. **ActionPayload:** ActionPayload is another alias for **any**. We don't have a way for now to associate the right action payload type with the action type.
+
+## useSelector
+
+if you use a selector inside the useSelector, there is no changes to the synthax
+```tsx
+const isRequestLoading = useSelector(state => isApiRequestLoadingSelector(actionTypes, state));
+```
+
+If you don't have a selector for your slice of state, we recommend a selector that returns the slice of state, typed
+```tsx
+const tenantActivity = useSelector(state => getDashboard(state).tenantActivity);
+```
+
+## useDispatch
+
+No changes in the useDispatch.
+
+```tsx
+const dispatch = useDispatch();
+```
+
+if you ever need the type of the dispatch, you can import it like this : `import { dispatch } from "redux"`
+
+
 ### actions.ts
 
+Only a small changes in actions.ts files. You now need to type the input parameters of the function that creates the action.
+
 ```tsx 
-export const dismissToast = (id: string) => {
-      return action(DISMISS_TOAST)
-        .payload({ id: id })
+import { action } from "@core/redux";
+import { TILE_TYPE } from "@contracts/api/dashboard/enums";
+
+const NAMESPACE = "[dashboard.dashboard-page]";
+
+export const DISMISS_TILE = `${NAMESPACE} DismissTile`;
+
+export const dismissUserTileDashboard = (tileType: TILE_TYPE) =>
+    action(DISMISS_TILE)
+        .payload({
+            tileType
+        })
+        .command({ url: "/dashboard/dismiss-user-tile" })
+        .mixpanel(MIXPANEL_EVENT_NAME.buttonClicked, {
+            [MIXPANEL_PROPERTY.buttonName]: MIXPANEL_VALUE.dismiss,
+            [MIXPANEL_PROPERTY.source]: getToDoTileTelemetrySource(tileType)
+        })
         .build();
-};
 ```
 
 ### reducers.ts
@@ -356,34 +404,102 @@ export const dismissToast = (id: string) => {
 ```tsx
 import { ActionPayload, createReducer } from "@core/redux";
 import { RegistrationContext } from "@core/registration";
-import { SESSION_READY_EVENT } from "@events/all";
+import { ReviewStatus, TileType } from "@contracts/api/dashboard/enums";
+import { USER_TILE_DISMISSED_EVENT } from "@contracts/api/dashboard/events";
 
-export interface SessionState {
-    info?: {
-        tenantId: string;
-        userId: string;
-        upn: string;
-        fullName: string;
-        role: string;
+export interface DashboardState {
+    showWelcome: boolean;
+    isInitialCrawlCompleted: boolean;
+    isInitialExternalSharingCrawlCompleted: boolean;
+    isLocked: boolean;
+    lockStateInfo?: {
+        isLocked: boolean;
     };
+    tenantStatistics?: {
+        orphanedUsersCount: number;
+    };
+    tenantActivity?: {
+        activityCount: number;
+    };
+    externalLinksReviewOverview?: {
+        reviewStatus: ReviewStatus;
+    };
+    tiles: {
+        tileType: TileType;
+        isDismissed: boolean;
+    }[];
 }
 
-const INITIAL_STATE: SessionState = {} ;
 
-function setSession(state: SessionState, session: ActionPayload) {
-    state.info = session;
+const INITIAL_STATE: DashboardState = {
+    showWelcome: true,
+    isInitialCrawlCompleted: false,
+    isInitialExternalSharingCrawlCompleted: false,
+    isLocked: false,
+    tiles: []
+};
+
+
+function dismissUserTile(state: DashboardState, payload: ActionPayload) {
+    state.tiles.forEach(tile => {
+        if(tile.tileType === payload.tileType) {
+            tile.isDismissed = true;
+        }
+    });
 }
 
 const reducer = {
-    session: createReducer(INITIAL_STATE, {
-        [SESSION_READY_EVENT]: setSession
+    dashboard: createReducer(INITIAL_STATE, {
+        [USER_TILE_DISMISSED_EVENT]: dismissUserTile
     })
 };
 
 export function registerReducers(registrationContext: RegistrationContext) {
     registrationContext.registerReducer(reducer);
 }
+```
 
+### selectors.ts
+
+```tsx
+import { DashboardState } from "./reducers";
+
+const getDashboardState = (state: AppState): DashboardState => {
+    return state.dashboard;
+};
+
+export const getTiles = (state: AppState) => {
+    return getDashboardState(state).tiles;
+};
+
+```
+OR
+```tsx
+export const getTiles = (state: AppState) => {
+    return (state.dashboard as DashboardState).tiles;
+};
+```
+
+### selectors.ts with reselect
+
+```tsx
+import { DashboardState } from "./reducers";
+import { createSelector } from "reselect";
+
+const getDashboardState = (state: AppState): DashboardState => {
+    return state.dashboard;
+};
+
+export const getTiles = (state: AppState) => {
+    return getDashboardState(state).tiles;
+};
+
+export const getVisibleTilesSelector = createSelector(
+    [getTiles],
+    tiles => {
+        return tiles.filter(x => x.isDismissed === false);
+    }
+);
 ```
 
 ### handlers.ts
@@ -398,8 +514,6 @@ import { trackMixpanelLocationChange } from "./actions";
 
 const BLACKLIST = ["/"];
 
-// We must register this handler before the reducers since we want to be able to access the old router
-// state in order to generate the previous URL
 function handleMixpanelLocationChange(dispatch: Dispatch, action: Action, getState: () => AppState) {
     if (action.type === LOCATION_CHANGE) {
         const { pathname: url } = action.payload.location;
@@ -411,7 +525,6 @@ function handleMixpanelLocationChange(dispatch: Dispatch, action: Action, getSta
         }
     }
 }
-
 
 export function registerHandlers(registrationContext: RegistrationContext) {
     registrationContext.registerHandler(handleMixpanelLocationChange, HANDLER_TYPE.beforeReducers);
