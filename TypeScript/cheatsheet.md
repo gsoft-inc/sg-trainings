@@ -291,7 +291,7 @@ function DelayedEffect(props: { timerMs: number }) {
 When using `useRef`, you have two options when creating a ref container that does not have an initial value:
 
 ```ts
-const ref1 = useRef<HTMLElement>();
+const ref1 = useRef<HTMLElement>(null);
 const ref2 = useRef<HTMLElement | null>(null);
 ```
 
@@ -323,7 +323,7 @@ function TextInputWithFocusButton() {
 
 ### Custom Hooks
 
-If you are returning an array in your Custom Hook, you will want to avoid type inference as Typescript will infer a union type (when you actually want different types in each position of the array). Instead, use [TS 3.4 const assertions](https://devblogs.microsoft.com/typescript/announcing-typescript-3-4/#const-assertions):
+If you are returning an array in your Custom Hook, you will want to avoid type inference as Typescript will infer a union type (when you actually want different types in each position of the array). 
 
 ```tsx
 export function useLoading() {
