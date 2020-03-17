@@ -325,6 +325,9 @@ function TextInputWithFocusButton() {
 
 If you are returning an array in your Custom Hook, you will want to avoid type inference as Typescript will infer a union type (when you actually want different types in each position of the array). 
 
+If you are returning an array in your Custom Hook, you will want to avoid letting Typescript infer the return type. if you don't add the `as const` after returning your array, TypeScript will infer the return type `(boolean | Promise<any>)[]`
+
+
 ```tsx
 export function useLoading() {
   const [isLoading, setState] = useState(false);
