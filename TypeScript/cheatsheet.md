@@ -44,8 +44,13 @@
   - [useRef](#useref)
   - [Custom Hooks](#custom-hooks)
 - [Section 3: TypeScript Redux](#typescript-redux)
+  - [Useful Types](#usefultypes)
+  - [useSelector](#useselector)
+  - [useDispatch](#usedispatch)  
   - [actions.ts](#actionsts)
   - [reducers.ts](#reducersts)
+  - [selectors.ts](#selectorsts)
+  - [selectors.ts with reselect](#selectorsts-with-reselect)  
   - [handlers.ts](#handlersts)
 
 ## TypeScript
@@ -351,7 +356,7 @@ When writing Redux actions/reducers/handlers, you will most likely use the follo
 
 3. **ActionPayload:** ActionPayload is another alias for **any**. We don't have a way for now to associate the right action payload type with the action type.
 
-## useSelector
+### useSelector
 
 if you use a selector inside the useSelector, there is no changes to the synthax
 ```tsx
@@ -363,7 +368,7 @@ If you don't have a selector for your slice of state, we recommend a selector th
 const tenantActivity = useSelector(state => getDashboard(state).tenantActivity);
 ```
 
-## useDispatch
+### useDispatch
 
 No changes in the useDispatch.
 
