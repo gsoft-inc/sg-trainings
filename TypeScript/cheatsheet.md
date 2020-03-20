@@ -57,11 +57,16 @@
 
 ### Type Union
 
+```tsx
 type randomUnion = string | number | boolean;
+```
 
 ### Nullable
 
-type NullableNumber = number | null;
+```tsx
+function(nullableValue: number | null) {
+}
+```
 
 ### Type vs Interface
 Use type when you might need a union or intersection:
