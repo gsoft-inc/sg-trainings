@@ -349,7 +349,7 @@ export function useLoading() {
 }
 ```
 
-## TypeScript Redux (WORK IN PROGRESS)
+## TypeScript Redux
 
 ### Useful Types
 
