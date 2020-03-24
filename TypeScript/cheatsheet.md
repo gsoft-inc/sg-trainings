@@ -355,11 +355,12 @@ export function useLoading() {
 
 When writing Redux actions/reducers/handlers, you will most likely use the following types : 
 
-1. **AppState:** AppState represents the all the state in the redux store. Since we have no way for now to create a type representing all the state, **AppState** is equal to **any**. AppState is declared in src/app/@types/global.d.ts, and does not need to be imported in a file to be used (it is declared globally)
+1. **Action:** Action is the type returned by the action builder. It contains a `type` and a `payload` and other properties used by middlewares. It is imported from the core : `import { Action } from "@core/redux"`.
 
-2. **Action:** Action is the type returned by the action builder. It contains a `type` and a `payload` and other properties used by middlewares. It is imported from the core : `import { Action } from "@core/redux"`.
+2. **ActionPayload:** ActionPayload is another alias for **any**. We don't have a way for now to associate the right action payload type with the action type. It is imported from the core : `import { Action } from "@core/redux"`.
 
-3. **ActionPayload:** ActionPayload is another alias for **any**. We don't have a way for now to associate the right action payload type with the action type.
+3. **DefaultRootState:** Represent the entire Redux State. We will be "Augmenting" this interface with every new reducer we create. 
+It is imported from the core : `import { Action } from "react-redux"`.
 
 ### useSelector
 
@@ -368,9 +369,9 @@ if you use a selector inside the useSelector, there is no changes to the synthax
 const isRequestLoading = useSelector(state => isApiRequestLoadingSelector(actionTypes, state));
 ```
 
-If you don't have a selector for your slice of state, we recommend a selector that returns the slice of state, typed
+If you don't have a selector for your slice of state, use the same synthax as before
 ```tsx
-const tenantActivity = useSelector(state => getDashboard(state).tenantActivity);
+const tenantActivity = useSelector(state => state.dashboard.tenantActivity);
 ```
 
 ### useDispatch
@@ -467,27 +468,25 @@ const reducer = {
 export function registerReducers(registrationContext: RegistrationContext) {
     registrationContext.registerReducer(reducer);
 }
+
+declare module "react-redux" {
+    interface DefaultRootState {
+        dashboard: HttpStatusState;
+    }
+}
+
 ```
 
 ### selectors.ts
 
 ```tsx
 import { DashboardState } from "./reducers";
+import { DefaultRootState } from "react-redux"
 
-const getDashboardState = (state: AppState): DashboardState => {
-    return state.dashboard;
+export const getTiles = (state: DefaultRootState) => {
+    return state.dashboard.tiles;
 };
 
-export const getTiles = (state: AppState) => {
-    return getDashboardState(state).tiles;
-};
-
-```
-OR
-```tsx
-export const getTiles = (state: AppState) => {
-    return (state.dashboard as DashboardState).tiles;
-};
 ```
 
 ### selectors.ts with reselect
@@ -495,13 +494,10 @@ export const getTiles = (state: AppState) => {
 ```tsx
 import { DashboardState } from "./reducers";
 import { createSelector } from "reselect";
+import { DefaultRootState } from "react-redux"
 
-const getDashboardState = (state: AppState): DashboardState => {
-    return state.dashboard;
-};
-
-export const getTiles = (state: AppState) => {
-    return getDashboardState(state).tiles;
+export const getTiles = (state: DefaultRootState) => {
+    return state.dashboard.tiles;
 };
 
 export const getVisibleTilesSelector = createSelector(
@@ -521,10 +517,11 @@ import { HANDLER_TYPE } from "@core/redux/handlers";
 import { LOCATION_CHANGE } from "connected-react-router";
 import { RegistrationContext }from "@core/registration/internal";
 import { trackMixpanelLocationChange } from "./actions";
+import { DefaultRootState } from "react-redux"
 
 const BLACKLIST = ["/"];
 
-function handleMixpanelLocationChange(dispatch: Dispatch, action: Action, getState: () => AppState) {
+function handleMixpanelLocationChange(dispatch: Dispatch, action: Action, getState: () => DefaultRootState) {
     if (action.type === LOCATION_CHANGE) {
         const { pathname: url } = action.payload.location;
         const { router } = getState();
