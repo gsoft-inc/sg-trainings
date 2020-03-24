@@ -90,6 +90,15 @@ class X implements FooBar {
 }
 ```
 
+Use interface when you want to define a shape e.g
+
+```tsx
+interface Person {
+  age: number,
+  name: string,
+}
+```
+
 Otherwise use whatever makes you happy that day.
 
 ### Optional parameters
