@@ -43,7 +43,7 @@
   - [useEffect](#useeffect)
   - [useRef](#useref)
   - [Custom Hooks](#custom-hooks)
-- [Section 3: TypeScript Redux (WORK IN PROGRESS)](#typescript-redux-work-in-progress)
+- [Section 3: TypeScript Redux](#typescript-redux)
   - [Useful Types](#useful-types)
   - [useSelector](#useselector)
   - [useDispatch](#usedispatch)  
