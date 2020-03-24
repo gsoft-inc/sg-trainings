@@ -411,11 +411,6 @@ export const dismissUserTileDashboard = (tileType: TILE_TYPE) =>
         .payload({
             tileType
         })
-        .command({ url: "/dashboard/dismiss-user-tile" })
-        .mixpanel(MIXPANEL_EVENT_NAME.buttonClicked, {
-            [MIXPANEL_PROPERTY.buttonName]: MIXPANEL_VALUE.dismiss,
-            [MIXPANEL_PROPERTY.source]: getToDoTileTelemetrySource(tileType)
-        })
         .build();
 ```
 
