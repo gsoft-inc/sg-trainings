@@ -37,6 +37,7 @@
 - [Section 2: TypeScript React](#typescript-react)
   - [Function Component without props](#function-component-without-props)
   - [Function Component with props](#function-component-with-props)
+  - [Function Component with children](#function-component-with-children)
   - [Optional Types](#optional-types)
   - [defaultProps](#defaultprops)
   - [useState](#usestate)
@@ -99,7 +100,7 @@ interface Person {
 }
 ```
 
-Otherwise use whatever makes you happy that day.
+If you are not sure which one to use, use an interface!
 
 ### Optional parameters
 
@@ -222,6 +223,23 @@ export const MyComponent = ({ title, age = 10 }: MyComponentProps) => {
 }
 
 export function MyComponent2({ title, age = 10 }: MyComponentProps) {
+  return (
+    <div> Hello World! </div>
+  );
+}
+
+
+### Function Component with children
+ 
+```tsx
+import  React from "react";
+
+interface MyComponentProps {
+  title: string,
+  age?: number,
+}
+
+export const MyComponent: FC = ({ title, age = 10 }: MyComponentProps) => {
   return (
     <div> Hello World! </div>
   );
@@ -480,7 +498,7 @@ export function registerReducers(registrationContext: RegistrationContext) {
 
 declare module "react-redux" {
     interface DefaultRootState {
-        dashboard: HttpStatusState;
+        dashboard: DashboardState;
     }
 }
 
