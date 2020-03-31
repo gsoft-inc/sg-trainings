@@ -386,20 +386,16 @@ When writing Redux actions/reducers/handlers, you will most likely use the follo
 
 2. **ActionPayload:** ActionPayload is another alias for **any**. We don't have a way for now to associate the right action payload type with the action type. It is imported from the core : `import { Action } from "@core/redux"`.
 
-3. **DefaultRootState:** Represent the entire Redux State. We will be "Augmenting" this interface with every new reducer we create. 
-It is imported from the core : `import { Action } from "react-redux"`.
+3. **AppRootState:** Represent the Redux State. Since we have no way for now to type that state, it is equal to any.
+Since it's globally defined, it does not need to be imported and can be used anywhere.
 
 ### useSelector
 
-if you use a selector inside the useSelector, there is no changes to the synthax
+You must use a selector in the useSelector to be able to access the state. For every reducer, 1 selector must be created in order to access that slice of state.
 ```tsx
 const isRequestLoading = useSelector(state => isApiRequestLoadingSelector(actionTypes, state));
 ```
 
-If you don't have a selector for your slice of state, use the same synthax as before
-```tsx
-const tenantActivity = useSelector(state => state.dashboard.tenantActivity);
-```
 
 ### useDispatch
 
@@ -496,22 +492,15 @@ export function registerReducers(registrationContext: RegistrationContext) {
     registrationContext.registerReducer(reducer);
 }
 
-declare module "react-redux" {
-    interface DefaultRootState {
-        dashboard: DashboardState;
-    }
-}
-
 ```
 
 ### selectors.ts
 
 ```tsx
 import { DashboardState } from "./reducers";
-import { DefaultRootState } from "react-redux"
 
-export const getTiles = (state: DefaultRootState) => {
-    return state.dashboard.tiles;
+export const getDashboard = (state: AppRootState): DashboardState => {
+    return state.dashboard;
 };
 
 ```
@@ -521,9 +510,8 @@ export const getTiles = (state: DefaultRootState) => {
 ```tsx
 import { DashboardState } from "./reducers";
 import { createSelector } from "reselect";
-import { DefaultRootState } from "react-redux"
 
-export const getTiles = (state: DefaultRootState) => {
+export const getTiles = (state: AppRootState) => {
     return state.dashboard.tiles;
 };
 
@@ -544,11 +532,10 @@ import { HANDLER_TYPE } from "@core/redux/handlers";
 import { LOCATION_CHANGE } from "connected-react-router";
 import { RegistrationContext }from "@core/registration/internal";
 import { trackMixpanelLocationChange } from "./actions";
-import { DefaultRootState } from "react-redux"
 
 const BLACKLIST = ["/"];
 
-function handleMixpanelLocationChange(dispatch: Dispatch, action: Action, getState: () => DefaultRootState) {
+function handleMixpanelLocationChange(dispatch: Dispatch, action: Action, getState: () => AppRootState) {
     if (action.type === LOCATION_CHANGE) {
         const { pathname: url } = action.payload.location;
         const { router } = getState();
