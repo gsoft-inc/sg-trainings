@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addItemToCart } from './actions';
-import uuid from "uuid/v4";
+import { v4 as uuid } from "uuid";
 
 // ********************************************** //
 // ******************* CART ********************* //
 // ********************************************** //
 
-function Cart(props) {
+function Cart() {
+  const cartItems = useSelector(state => state.cartItems);
+  const cartAmount = useSelector(state => state.cartAmount);
+
   return (
     <>
-      <p>Your Cart (<span>{props.cartAmount}$</span>)</p>
+      <p>Your Cart (<span>{cartAmount}$</span>)</p>
       <ul>
         {
-          props.cartItems.map(item => {
+          cartItems.map(item => {
             return <li key={item.id}>{item.name} - {item.price}$</li>
           })
         }
@@ -22,52 +25,40 @@ function Cart(props) {
   );
 }
 
-export const ConnectedCart = connect(
-  (state) => ({
-    cartAmount: state.cartAmount,
-    cartItems: state.cartItems
-  }),
-  null
-)(Cart);
-
-
 // ********************************************** //
 // ******************* ITEM ********************* //
 // ********************************************** //
 
-function AvailableItem(props) {
+function AvailableItem({name,price}) {
+  const dispatch = useDispatch();
+
   function handleClick(event) {
     event.stopPropagation();
 
-    props.dispatch(addItemToCart(uuid(), props.name, parseInt(props.price)));
+    dispatch(addItemToCart(uuid(), name, parseInt(price)));
   }
 
   return (
-    <li>{props.name} - {props.price}$ <button onClick={handleClick}>Add one item to cart</button></li>
+    <li>{name} - {price}$ <button onClick={handleClick}>Add one item to cart</button></li>
   );
 }
 
-function AvailableItems(props) {
+function AvailableItems() {
+  const availableItems = useSelector(state => state.availableItems);
+
   return (
     <>
-      <p>Available Items ({props.availableItems.length})</p>
+      <p>Available Items ({availableItems.length})</p>
       <ul>
         {
-          props.availableItems.map(item => {
-            return <AvailableItem key={item.id} { ...item } dispatch={props.dispatch} />
+          availableItems.map(item => {
+            return <AvailableItem key={item.id} { ...item } />
           })
         }
       </ul>
     </>
   );
 }
-
-export const ConnectedAvailableItems = connect(
-  (state) => ({
-    availableItems: state.availableItems,
-  }),
-  null
-)(AvailableItems);
 
 // ********************************************* //
 // ******************* APP ********************* //
@@ -80,8 +71,8 @@ export class App extends Component {
         <p>Welcome to Amazon!</p>
         <img alt="amazon" src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2016/02/AMAZON-1200x537.png" />
         <br />
-        <ConnectedCart />
-        <ConnectedAvailableItems />
+        <Cart />
+        <AvailableItems />
       </div>
     );
   }
