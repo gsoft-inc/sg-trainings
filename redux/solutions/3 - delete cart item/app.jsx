@@ -12,7 +12,7 @@ import { addItemToCart, clearAllItems, removeCartItem } from './actions';
 function CartItem({id, name, price}) {
 
   function removeItem(event) {
-    props.dispatch(removeCartItem(id, price));
+    dispatch(removeCartItem(id, price));
   }
 
   return (

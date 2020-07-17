@@ -9,15 +9,14 @@ import { addItemToCart, clearAllItems, removeCartItem, getItems } from './action
 // ******************* CART ********************* //
 // ********************************************** //
 
-function CartItem(props) {
-  const { item } = props;
+function CartItem({id, name, price}) {
 
   function removeItem(event) {
-    props.dispatch(removeCartItem(item.id, item.price));
+    dispatch(removeCartItem(id, price));
   }
 
   return (
-    <li key={item.id}>{item.name} - {item.price}$ <button onClick={removeItem}>Remove</button></li>
+    <li key={id}>{name} - {price}$ <button onClick={removeItem}>Remove</button></li>
   );
 }
 
@@ -71,7 +70,7 @@ function AvailableItems() {
   const dispatch = useDispatch();
   const availableItems = useSelector(state => state.availableItems);
 
-  if (props.availableItems.length === 0) {
+  if (availableItems.length === 0) {
     dispatch(getItems());
   }
 
@@ -80,7 +79,7 @@ function AvailableItems() {
       <p>Available Items ({availableItems.length})</p>
       <ul>
         {
-          props.availableItems.map(item => {
+          availableItems.map(item => {
             return <AvailableItem key={item.id} { ...item } dispatch={dispatch} />
           })
         }

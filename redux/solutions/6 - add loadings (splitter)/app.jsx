@@ -9,15 +9,14 @@ import { addItemToCart, clearAllItems, removeCartItem, getItems } from './action
 // ******************* CART ********************* //
 // ********************************************** //
 
-function CartItem(props) {
-  const { item } = props;
+function CartItem({id, name, price}) {
 
   function removeItem(event) {
-    props.dispatch(removeCartItem(item.id, item.price));
+    dispatch(removeCartItem(id, price));
   }
 
   return (
-    <li key={item.id}>{item.name} - {item.price}$ <button onClick={removeItem}>Remove</button></li>
+    <li key={id}>{name} - {price}$ <button onClick={removeItem}>Remove</button></li>
   );
 }
 
@@ -57,7 +56,7 @@ function AvailableItem({name,price}) {
   function addItem(event) {
     event.stopPropagation();
 
-    props.dispatch(addItemToCart(uuid(), name, parseInt(price)));
+    dispatch(addItemToCart(uuid(), name, parseInt(price)));
   }
 
   return (
