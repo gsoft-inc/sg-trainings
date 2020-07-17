@@ -32,7 +32,7 @@ function Cart() {
       <ul>
         {
           cartItems.map(item => {
-            return <CartItem key={item.id} item={item} dispatch={dispatch} />
+            return <CartItem key={item.id} item={item} />
           })
         }
       </ul>
@@ -59,7 +59,6 @@ function AvailableItem({name,price}) {
 }
 
 function AvailableItems() {
-  const dispatch = useDispatch();
   
   const availableItems = useSelector(state => state.availableItems);
 
@@ -69,7 +68,7 @@ function AvailableItems() {
       <ul>
         {
           availableItems.map(item => {
-            return <AvailableItem key={item.id} { ...item } dispatch={dispatch} />
+            return <AvailableItem key={item.id} { ...item } />
           })
         }
       </ul>
