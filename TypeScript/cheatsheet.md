@@ -51,15 +51,7 @@
   - [actions.ts](#actionsts)
   - [reducers.ts](#reducersts)
   - [selectors.ts](#selectorsts)
-  - [selectors.ts with reselect](#selectorsts-with-:react: :javascript: :ts:  Moé j'aime ça le frontend :react: :javascript: :ts:
-:wave: Tu as des temps mort cette semaine? Convertir des fichiers à TypeScript (#sga-conversion-typescript), c'est pas ça qui t'intéresse cette semaine?
-Je te propose des améliorations frontend de tous les genres s'il y a des sujets qui te passionne!
-Notre service pour avoir des images fake est deprecated, aide nous à trouver la prochaine alternative! : https://gsoftdev.atlassian.net/browse/AP-3470
-La nouvelle version de CRA cause des délais au startup du dev serveur + à chaque save, aide nous à optimiser ça! https://gsoftdev.atlassian.net/browse/AP-3563
-Le source map de overcast permettait d'afficher les noms de méthodes sans le code. Nous on a juste retirer le sourcemap de la prod. Aide nous à avoir des plus belle stacktrace : https://gsoftdev.atlassian.net/browse/AP-3362
-Le Fake API à besoin d'amour! Aide nous à généré des cas de tests plus intéressant : https://gsoftdev.atlassian.net/browse/AP-1351
-Tu veux faire des custom hook utils pour tes collègues? https://gsoftdev.atlassian.net/browse/AP-1407
-Si ya un choix là dedans qui t'intéresse, hésite pas à la shotgun  + me parler si tu veux plus de détaux!)  
+  - [selectors.ts with reselect](#selectorsts-with-ts)  
   - [handlers.ts](#handlersts)
 
 ## TypeScript
