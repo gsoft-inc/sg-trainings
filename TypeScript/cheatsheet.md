@@ -51,7 +51,7 @@
   - [actions.ts](#actionsts)
   - [reducers.ts](#reducersts)
   - [selectors.ts](#selectorsts)
-  - [selectors.ts with reselect](#selectorsts-with-ts)  
+  - [selectors.ts with reselect](#selectorsts-with-reselect)  
   - [handlers.ts](#handlersts)
 
 ## TypeScript
